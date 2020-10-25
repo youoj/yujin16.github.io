@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+  
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- 안드로이드 홈화면추가시 상단 주소창 제거 -->
+        <meta name="mobile-web-app-capable" content="yes"/>
+        
+        <!-- ios홈화면추가시 상단 주소창 제거 -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        
+        <title>🐷8</title>
+        <link rel="canonical" href="https://yujin16.github.io/pig8"/>
+        <!-- <link rel="icon" href="https://yujin16.github.io/favicon.ico" type="image/x-icon"> -->
+        <!-- <meta property="og:title" content="조쪼로의 블로그"/> -->
+        <!-- <meta property="og:description" content="조쪼로의 github page"/> -->
+        <meta property="og:url" content="https://yujin16.github.io/pig8"/>
+        <!-- <meta property="og:image" content="https://yujin16.github.io/images/thumbnail.png"> -->
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--        <script type="text/javascript" src="jsencrypt.min.js"></script>-->
+        <script type="text/javascript" src="common.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"/>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    
+    <body>
+        <div class="full-screen center-vertical-items">
+            <div>
+                <button id="showIncomeHistory" class="btn-show-history background-color-red"> 입금 현황 </button>
+                <button id="showExpenseHistory" class="btn-show-history background-color-blue"> 지출 내역 </button>
+            </div>
+            
+            <br><br>
+            
+            <div>
+                <div class="wrap-summary-item text-color-red">
+                    <div><p> 곗돈 + </p></div>
+                    <div id="priceIncome" class="text-price"><p> 0 </p></div>
+                </div>
+                <div class="wrap-summary-item text-color-red">
+                    <div ><p> 이자 + </p></div>
+                    <div id="priceInterest" class="text-price"><p> 0 </p></div>
+                </div>
+                <div class="wrap-summary-item text-color-blue">
+                    <div><p> 지출 - </p></div>
+                    <div id="priceExpense" class="text-price"><p> 0 </p></div>
+                </div>
+                <hr>
+                <div class="wrap-summary-item text-color-defalut">
+                    <div><p> 합계 = </p></div>
+                    <div id="priceSum" class="text-price"><p> 0 </p></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="copyright">
+            <span>Copyright &copy; 2020 yujin.</span>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript"> 
+    var data = null;
+
+    var err = $.getJSON("data.json", function(json) {
+        data = new MoneyData( json );
+
+        $( '#priceIncome' ).text( data.m_nIncome.format() );
+        $( '#priceInterest' ).text( data.m_nInterest.format() );
+        $( '#priceExpense' ).text( data.m_nExpense.format() );
+
+        var sum = data.m_nIncome + data.m_nInterest - data.m_nExpense;
+        $( '#priceSum' ).text( sum.format() );
+    });
+
+    $( '#showIncomeHistory' ).click( function() {
+        location.href = 'income_history.html';
+    });
+
+    $( '#showExpenseHistory' ).click( function() {
+        location.href = 'expense_history.html';
+    });
+</script>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- 안드로이드 홈화면추가시 상단 주소창 제거 -->
+        <meta name="mobile-web-app-capable" content="yes"/>
+
+        <!-- ios홈화면추가시 상단 주소창 제거 -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+        <title>🐷8</title>
+        <link rel="canonical" href="https://yujin16.github.io/pig8"/>
+        <!-- <link rel="icon" href="https://yujin16.github.io/favicon.ico" type="image/x-icon"> -->
+        <!-- <meta property="og:title" content="조쪼로의 블로그"/> -->
+        <!-- <meta property="og:description" content="조쪼로의 github page"/> -->
+        <meta property="og:url" content="https://yujin16.github.io/pig8"/>
+        <!-- <meta property="og:image" content="https://yujin16.github.io/images/thumbnail.png"> -->
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="jsencrypt.min.js"></script>
+        <script type="text/javascript" src="common.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"/>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+
+    <body id="income">
+        <div class="section-overview-head center-vertical-items">
+            <div><p id="priceIncome"></p></div>
+            <div><u id="account" class="bnt-hyperlink text-color-gray"> kakaobank ****-**-******* </u></div>
+        </div>
+
+        <div id="history" class="section-history" >
+        </div>
+        
+        <div id="modalPassword" class="modal">
+            <div class="modal-content background-color-default">
+                <div class="modal-head">
+                    <a id="btnModalClose" class="btn-close"> &times; </a>
+                    <p> password </p>
+                </div>
+                <br>
+                <div class="wrap-password-circle center-horizontal-items">
+                    <div id="password1" class="circle-big background-color-gray"></div>
+                    <div id="password2" class="circle-big background-color-gray"></div>
+                    <div id="password3" class="circle-big background-color-gray"></div>
+                    <div id="password4" class="circle-big background-color-gray"></div>
+                </div>
+                <br>
+                <div class="section-keypad">
+                    <div>
+                        <div id="num1" class="btn-keypad js-number"><p> 1 </p></div>
+                        <div id="num2" class="btn-keypad js-number"><p> 2 </p></div>
+                        <div id="num3" class="btn-keypad js-number"><p> 3 </p></div>
+                    </div>
+                    <div>
+                        <div id="num4" class="btn-keypad js-number"><p> 4 </p></div>
+                        <div id="num5" class="btn-keypad js-number"><p> 5 </p></div>
+                        <div id="num6" class="btn-keypad js-number"><p> 6 </p></div>
+                    </div>
+                    <div>
+                        <div id="num7" class="btn-keypad js-number"><p> 7 </p></div>
+                        <div id="num8" class="btn-keypad js-number"><p> 8 </p></div>
+                        <div id="num9" class="btn-keypad js-number"><p> 9 </p></div>
+                    </div>
+                    <div>
+                        <div class ="btn-keypad"><p>  </p></div>
+                        <div id="num0" class="btn-keypad js-number"><p> 0 </p></div>
+                        <div id="btnRemoveNumber" class="btn-keypad"><p> &larr; </p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="alertCopyAccout" class="alert">
+            <div><p> 계좌번호가 복사되었습니다. </p></div>
+        </div>
+
+        <div id="copyright">
+            <span>Copyright &copy; 2020 yujin.</span>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript"> 
+    var data = null;
+
+    $.getJSON("data.json", function(jsondata) {
+        data = new MoneyData( jsondata );
+
+        $( '#priceIncome' ).text( data.m_nIncome.format() );
+        $.each( data.m_aryIncome, function(index, income) {
+            var sum = 0;
+
+            for( var i in income )
+            {
+                sum += income[i];
+            }
+
+            var sIncomeCheck = "";
+            sIncomeCheck += (0 != income[0]? '<div class="circle-small daseul"></div>' : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[1]? '<div class="circle-small dowon"></div>'  : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[2]? '<div class="circle-small sujee"></div>'  : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[3]? '<div class="circle-small sujin"></div>'  : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[4]? '<div class="circle-small sion"></div>'   : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[5]? '<div class="circle-small yujin"></div>'  : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[6]? '<div class="circle-small jueun"></div>'  : '<div class="circle-small notyet"></div>');
+            sIncomeCheck += (0 != income[7]? '<div class="circle-small haeun"></div>'  : '<div class="circle-small notyet"></div>');
+
+            var nYear = startDate.getYear() + 1900;
+            var nMonth = startDate.getMonth() + index;
+            var objDate = new Date( nYear, nMonth );
+
+            $("#history").prepend($(
+            '<div class="wrap-income-item center-horizontal-items background-color-white">' +
+                '<div class="text-date text-color-gray "> <p>' + objDate.format('yyyy.MM') + '</p> </div>' +
+                '<div class="text-price"> <p>'+ sum.format() +'</p> </div>' +
+                '<div class="text-people center-horizontal-items">' + sIncomeCheck + '</div>' +
+            '</div>'));
+        });
+    });
+</script>
