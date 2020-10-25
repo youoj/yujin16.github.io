@@ -43,8 +43,8 @@
 <script type="text/javascript"> 
     var data = null;
 
-    $.getJSON("data.json", function(jsondata) {
-        data = new MoneyData( jsondata );
+    $.getJSON("data.json", function(json) {
+        data = new MoneyData( json );
 
         $( '#priceExpense' ).text( data.m_nExpense.format() );
         $.each( data.m_aryExpense, function(index, expense) {

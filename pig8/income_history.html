@@ -87,8 +87,8 @@
 <script type="text/javascript"> 
     var data = null;
 
-    $.getJSON("data.json", function(jsondata) {
-        data = new MoneyData( jsondata );
+    $.getJSON("data.json", function(json) {
+        data = new MoneyData( json );
 
         $( '#priceIncome' ).text( data.m_nIncome.format() );
         $.each( data.m_aryIncome, function(index, income) {
@@ -124,5 +124,9 @@
 
     $( '#account' ).click( function() {
         showPasswordModal();
+    });
+
+    $( '#btnModalClose' ).click( function() {
+        closePasswordModal();
     });
 </script>

@@ -78,14 +78,6 @@ function MoneyData( data )
 }
 
 
-/* click event */
-window.onclick = function(e) {
-    if( e.target == document.getElementById('modalPassword') || e.target == document.getElementById('btnModalClose') )
-    {
-        closePasswordModal();
-    }
-}
-
 function showPasswordModal() 
 {
     $( '#modalPassword' ).show();
