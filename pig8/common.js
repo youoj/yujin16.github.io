@@ -1,4 +1,4 @@
-const bTestMode = true;
+const bTestMode = false;
 const startDate   = new Date( 2020, 6 - 1 );
 const currentDate = new Date( );
 const Name = Object.freeze({ 0:"daseul", 1:"dowon", 2:"sujee", 3:"sujin", 4:"sion", 5:"yujin", 6:"jueun", 7:"haeun" });
